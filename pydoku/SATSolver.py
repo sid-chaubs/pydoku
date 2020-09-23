@@ -4,7 +4,7 @@ Class containing the algorithmic logic to solve Boolean Satisfiability Problems.
 The current implementation supports 3 heuristics:
 1. The standard Davis-Putnam-Logemann-Loveland (DPLL)
 2. DPLL using the random literal (RAND) branching heuristic
-3. DPLL using the maximum occurences in minimum size clause (MOMS) branching heuristic
+3. DPLL using the maximum occurences in minimal size clauses (MOMS) branching heuristic
 """
 
 from copy import copy, deepcopy
@@ -195,13 +195,13 @@ class SATSolver:
     if heuristic == HeuristicType.RANDOM_LITERAL:
       return self.random_literal(cnf)
     elif heuristic == HeuristicType.MAX_OCCURRENCES_MIN_SIZE:
-      return self.max_occurences_min_size_literal(cnf)
+      return self.max_occurences_minimal_size_literal(cnf)
 
     return cnf[0][0]
 
-  def max_occurences_min_size_literal(self, cnf: list) -> str:
+  def max_occurences_minimal_size_literal(self, cnf: list) -> str:
     """
-    Returns the literal occurring the most times in the clause with minimal size
+    Returns the literal occurring the most times in clauses of minimal size
 
     Parameters
     ----------
@@ -218,38 +218,36 @@ class SATSolver:
     next_literal : function fetching the next literal based on the heuristc type supplied to it
     dpll : function implementing Davis-Putnam-Logemann-Loveland (DPLL) algorithm
     """
-
-    min_clause = None
-    min_clause_size = None
+    minimal_clause_size = None
+    literals = list()
 
     for clause in cnf:
-      if min_clause is None:
-        min_clause = clause
-        min_clause_size = len(min_clause)
+      if minimal_clause_size is None:
+        minimal_clause_size = len(clause)
 
-      if len(clause) < min_clause_size:
-        min_clause = clause
-        min_clause_size = len(min_clause)
+      if len(clause) < minimal_clause_size:
+        literals.clear()
+        minimal_clause_size = len(clause)
 
+      if len(clause) == minimal_clause_size:
+        literals += clause
+
+    max_occurrences = 0
+    literal_counts = dict()
     max_occurring = None
-    max_occurrences = None
 
-    for current in min_clause:
-      current_count = 0
+    for literal in literals:
+      if literal in literal_counts:
+        literal_counts[literal] += 1
+      else:
+        literal_counts[literal] = 1
 
-      for literal in min_clause:
-        if literal == current:
-          current_count += 1
-
-        if max_occurring is None:
-          max_occurring = current
-          max_occurrences = current_count
-
-        if current_count > max_occurrences:
-          max_occurring = literal
-          max_occurrences = current_count
+      if literal_counts[literal] > max_occurrences:
+        max_occurrences = literal_counts[literal]
+        max_occurring = literal
 
     return max_occurring
+
 
   def random_literal(self, cnf: list) -> str:
     """

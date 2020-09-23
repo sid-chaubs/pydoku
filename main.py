@@ -13,8 +13,8 @@ if __name__ == '__main__':
   sudoku_examples = f'pydoku/test_files/sudoku-examples.txt'
   sudoku_rules = f'pydoku/test_files/sudoku-rules.txt'
   sudoku_file = f'pydoku/test_files/sudoku-dimacs.txt'
-  rules = FileReader.parse(sudoku_rules)
 
+  rules = FileReader.parse(sudoku_rules)
   examples = open(sudoku_examples, 'r')
 
   for line in examples:
