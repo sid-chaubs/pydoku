@@ -1,5 +1,5 @@
 from pydoku.SATSolver import SATSolver
-from pydoku.FileReader import FileReader
+from pydoku.FileHandler import FileHandler
 from pydoku.HeuristicType import HeuristicType
 from pydoku.Utilities import Utilities
 
@@ -10,11 +10,11 @@ if __name__ == '__main__':
   heuristic_id = 3
   heuristic = HeuristicType(heuristic_id)
 
-  sudoku_examples = f'pydoku/test_files/sudoku-examples.txt'
-  sudoku_rules = f'pydoku/test_files/sudoku-rules.txt'
-  sudoku_file = f'pydoku/test_files/sudoku-dimacs.txt'
+  sudoku_examples = 'pydoku/test_files/sudoku-examples.txt'
+  sudoku_rules = 'pydoku/test_files/sudoku-rules.txt'
+  sudoku_file = 'pydoku/test_files/sudoku-dimacs.txt'
 
-  rules = FileReader.parse(sudoku_rules)
+  rules = FileHandler.parse(sudoku_rules)
   examples = open(sudoku_examples, 'r')
 
   for line in examples:
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     write_file.write(dimacs)
     write_file.close()
 
-    sudoku = FileReader.parse(sudoku_file)
+    sudoku = FileHandler.parse(sudoku_file)
     cnf = sudoku + rules
 
     start_time = time.time()
