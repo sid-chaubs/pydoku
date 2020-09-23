@@ -1,7 +1,8 @@
 """
-Class containing a static helper method to parse DIMACS files
+Class containing a helper methods to parse and write DIMACS files
 """
-class FileReader:
+
+class FileHandler:
 
   @staticmethod
   def parse(filepath: str) -> list:

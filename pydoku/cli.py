@@ -15,9 +15,8 @@ Options:
   -S3 Relative path for a DIMACS file defining a CNF to be solved using Maximum Occurences in Minimal Size as the branching heuristic.
 
 """
-
 from pydoku.SATSolver import SATSolver
-from pydoku.FileReader import FileReader
+from pydoku.FileHandler import FileHandler
 from pydoku.HeuristicType import HeuristicType
 from docopt import docopt
 from termcolor import colored, cprint
@@ -31,12 +30,57 @@ ARG_KEY_MOMS = '-3'
 ARG_KEY_FILEPATH = 'FILE'
 
 def error(message: str) -> None:
+  """
+  Prints out an error message in the terminal
+
+  Parameters
+  ----------
+  message : str
+      message to display the user
+
+  Returns
+  -------
+  None
+
+  See Also
+  --------
+  interpret : function interpreting the command line input and providing heuristic directive to the SAT solver
+  """
   cprint(message, 'red', attrs = ['bold'], file = sys.stderr)
 
 def success(message: str) -> None:
+  """
+  Prints out a success message in the terminal
+
+  Parameters
+  ----------
+  message : str
+      message to display the user
+
+  Returns
+  -------
+  None
+
+  See Also
+  --------
+  interpret : function interpreting the command line input and providing heuristic directive to the SAT solver
+  """
   cprint(message, 'green', attrs = ['bold'], file = sys.stderr)
 
 def interpret():
+  """
+  Interprets command line input and provides appropriate input to the SAT solver.
+  If our SAT solver is able to find a suitable solution to the input CNF, the solution is written to the output file in DIMACS format.
+
+  Returns
+  -------
+  None
+
+  See Also
+  --------
+  success : function printing success messages to terminal
+  error : function printing error messages to terminal
+  """
   args = docopt(__doc__)
 
   if args[ARG_KEY_SOLVE] is None:
@@ -54,7 +98,7 @@ def interpret():
     exit(0)
 
   try:
-    cnf = FileReader.parse(args[ARG_KEY_FILEPATH])
+    cnf = FileHandler.parse(args[ARG_KEY_FILEPATH])
   except:
     error('Error: An error occurred while reading the file provided.')
     exit(0)
