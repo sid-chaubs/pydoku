@@ -121,7 +121,7 @@ class SATSolver:
     pure_literals = self.get_pure_literals(cnf)
 
     for literal in pure_literals:
-        assignments[literal] = not self.is_negation(literal)
+        assignments[literal] = True
 
         for clause in copy(cnf):
           if literal in clause:
@@ -159,7 +159,7 @@ class SATSolver:
     unit_propagation : function implementing the logic for unit propagation
     next_literal : function implementing the logic to find the next literal to branch on
     """
-    assignments[literal] = not self.is_negation(literal)
+    assignments[literal] = True
     negation = self.get_negation(literal)
 
     for clause in copy(cnf):
