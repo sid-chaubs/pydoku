@@ -349,19 +349,3 @@ class SATSolver:
       return literal[1:len(literal)]
 
     return f'-{literal}'
-
-  def is_negation(self, literal: str) -> bool:
-    """
-    Returns the negation of the literal provided as parameter
-
-    Parameters
-    ----------
-    literal : str
-       the literal whose negation you want to obtain
-
-    Returns
-    -------
-    bool
-       returns true if the provided literal is a negation
-    """
-    return literal[0] == '-'
