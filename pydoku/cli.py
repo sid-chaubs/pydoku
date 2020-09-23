@@ -105,21 +105,20 @@ def interpret():
     error('Error: An error occurred while reading the file provided.')
     exit(0)
 
-  # try:
-  solver = SATSolver()
-  satisfied, assignments = solver.solve(cnf, heuristic)
-  if satisfied:
-    FileHandler.output(output_filepath, assignments)
-  # except:
-  #   error('Error: An error occurred while solving the provided CNF formula.')
-  #   exit(0)
+  try:
+    solver = SATSolver()
+    satisfied, assignments = solver.solve(cnf, heuristic)
 
-  if satisfied:
-    success('Satisfiable solution for the formula found!')
-    success(f'--- Assignments satisfying the CNF can be found here: {output_filepath}')
-  else:
-    error('Formula provided is unsatisfiable.')
+    if satisfied:
+      FileHandler.output(output_filepath, assignments)
+      success('Satisfiable solution for the formula found!')
+      success(f'Truth assignments satisfying the CNF can be found here: {output_filepath}')
+    else:
+      error('Formula provided is unsatisfiable.')
 
+  except:
+    error('Error: An error occurred while solving the provided CNF formula.')
+    exit(0)
 
 if __name__ == "__main__":
   interpret()
