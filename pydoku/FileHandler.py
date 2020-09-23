@@ -59,8 +59,7 @@ class FileHandler:
 
     Returns
     -------
-    list
-        returns CNF containing
+    None
     """
     output = list()
     for key, value in assignments.items():
