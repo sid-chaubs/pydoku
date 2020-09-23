@@ -43,3 +43,33 @@ class FileHandler:
         exit(0)
 
     return cnf
+
+  @staticmethod
+  def output(output_path: str, assignments: dict) -> None:
+    """
+    Parses a file provided to it in DIMACS format and returns the appropriate CNF as a list
+
+    Parameters
+    ----------
+    output_path : str
+      file to write the output to
+
+    assignments : dict
+      a dictionary containing assignments that satisfy the CNF
+
+    Returns
+    -------
+    list
+        returns CNF containing
+    """
+    output = list()
+    for key, value in assignments.items():
+      if value is True:
+        output.append(f'{key} 0')
+
+    dimacs = f'p cnf {len(output)} {len(output)}\n'
+    dimacs += '\n'.join(output)
+
+    file = open(output_path, '+w')
+    file.write(dimacs)
+    file.close()
