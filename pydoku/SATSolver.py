@@ -36,7 +36,7 @@ class SATSolver:
     if heuristic not in HeuristicType:
       raise TypeError('Invalid heuristic provided as input.')
 
-    return self.dpll(cnf, self.get_initial_assignments(cnf), heuristic)
+    return self.dpll(cnf, dict(), heuristic)
 
   def dpll(self, cnf: list, assignments: dict, heuristic: HeuristicType) -> [bool, dict]:
     """
@@ -365,27 +365,3 @@ class SATSolver:
        returns true if the provided literal is a negation
     """
     return literal[0] == '-'
-
-  def get_initial_assignments(self, cnf: list) -> dict:
-    """
-    Returns a dictionary with initial assignments for solving the CNF
-
-    Parameters
-    ----------
-    cnf : list
-       a list of clauses that belong to the CNF
-
-    Returns
-    -------
-    dict
-       returns the initial assignments based on the CNF provided
-    """
-    cnf = deepcopy(cnf)
-    assignments = dict()
-    for clause in cnf:
-      for literal in clause:
-        if literal not in assignments:
-          start = (1 if literal[0] == "-" else 0)
-          assignments[literal[start:len(literal)]] = None
-
-    return assignments
