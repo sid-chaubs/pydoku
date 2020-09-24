@@ -7,7 +7,7 @@ import time
 from copy import deepcopy
 
 if __name__ == '__main__':
-  heuristic_id = 3
+  heuristic_id = 1
   heuristic = HeuristicType(heuristic_id)
 
   sudoku_examples = 'pydoku/test_files/sudoku-examples.txt'
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     valid = Utilities.evaluate(cnf, result_assignments)
 
     if valid:
-      print('DPLL Output: Satisfied')
+      print(f'DPLL Output: Satisfied. Backtracks: {backtracks}')
     else:
       print('DPLL Output: Unsatisfied')
 
