@@ -1,18 +1,12 @@
-<h1 align="center">pydoku</h1> 
-
-<br>
-
 <p align="center">
   <a href="https://github.com/sid-chaubs/pydoku">
     <img src="/images/logo.png" alt="pydoku" width="125" />
   </a>
 </p>
-
+<h3 align="center">pydoku</h3> 
 <p align="center">
   A SAT Solver, that will make you smile.
 </p>
-
-<br />
 
 ## Table of Contents
 
