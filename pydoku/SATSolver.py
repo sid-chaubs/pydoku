@@ -13,7 +13,10 @@ from random import choice
 
 class SATSolver:
 
-  def solve(self, cnf: list, heuristic: HeuristicType) -> [bool, dict]:
+  def __init__(self):
+    self.backtracks = 0
+
+  def solve(self, cnf: list, heuristic: HeuristicType) -> [bool, dict, int]:
     """
     Solves a boolean satisfiability problem represented in conjunctive normal form (CNF)
 
@@ -33,10 +36,17 @@ class SATSolver:
     --------
     dpll : function implementing the logic for Davis–Putnam–Logemann–Loveland (DPLL) algorithm
     """
+    self.backtracks = 0
+
     if heuristic not in HeuristicType:
       raise TypeError('Invalid heuristic provided as input.')
 
-    return self.dpll(cnf, dict(), heuristic)
+    satisfied, assignments = self.dpll(cnf, dict(), heuristic)
+
+    if not satisfied:
+      self.backtracks -= 1
+
+    return satisfied, assignments, self.backtracks
 
   def dpll(self, cnf: list, assignments: dict, heuristic: HeuristicType) -> [bool, dict]:
     """
@@ -78,6 +88,7 @@ class SATSolver:
 
     # check for presence of empty clause
     if [] in cnf:
+      self.backtracks += 1
       return False, None
 
     # check if all clauses are satisfied

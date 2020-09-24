@@ -31,7 +31,7 @@ if __name__ == '__main__':
     start_time = time.time()
 
     solver = SATSolver()
-    satisfied, result_assignments = solver.solve(deepcopy(cnf), heuristic)
+    satisfied, result_assignments, backtracks = solver.solve(deepcopy(cnf), heuristic)
 
     # check if the returned assignments are valid
     valid = Utilities.evaluate(cnf, result_assignments)
@@ -42,3 +42,4 @@ if __name__ == '__main__':
       print('DPLL Output: Unsatisfied')
 
     print('--- %s seconds ---' % (time.time() - start_time))
+    print('--- %s backtracks ---' % backtracks)
