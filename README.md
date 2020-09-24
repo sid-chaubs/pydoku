@@ -8,9 +8,11 @@
   </a>
 </p>
 
-<h4 align="center">
+<p align="center">
   A SAT Solver, that will make you smile.
-</h4>
+</p>
+
+<br />
 
 ## Table of Contents
 
