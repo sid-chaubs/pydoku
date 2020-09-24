@@ -33,7 +33,6 @@ def to_dimacs(sudoku: str) -> str:
 
   return '\n'.join(sudoku_values)
 
-@staticmethod
 def evaluate(cnf: list, assignments: dict) -> bool:
   """
   Returns a randomly selected literal from the current CNF
