@@ -14,7 +14,6 @@
 - [Download](#download)
 - [Usage](#usage)
 - [Contributors](#contributors)
-- [Credits](#credits)
 
 ## Key Features
 
@@ -72,5 +71,7 @@ If a satisifiable solution for the provided CNF is found, the CLI will output a 
 So, if your input file was `~/Desktop/9x9-sudoku-dimacs.txt`, the output file will be `~/Desktop/9x9-sudoku-dimacs.txt.output`.
 
 ## Contributors
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification and is brought to you by these [awesome contributors](./CONTRIBUTORS.md).
 
+<a href="https://github.com/ikramez"><img src="https://avatars1.githubusercontent.com/u/43179802?v=4" width="100px"/></a> | <a href="https://github.com/iershh"><img src="https://avatars2.githubusercontent.com/u/39951197?v=4" width="100px"/></a> | <a href="https://github.com/SeyfullahB"><img src="https://avatars3.githubusercontent.com/u/71129894?v=4" width="100px"/></a> | <a href="https://github.com/sid-chaubs"><img src="https://avatars0.githubusercontent.com/u/35002570?v=4" width="100px"/></a>
+:-:|:-:|:-:|:-:
+<a href="https://github.com/ikramez">Ikrame Zirar</a> | <a href="https://github.com/iershh">Iris Lau</a> | <a href="https://github.com/SeyfullahB">Seyfullah Bakirci</a> | <a href="https://github.com/sid-chaubs" align="center">Sid Chaubal</a> 
