@@ -66,9 +66,9 @@ Option|Heuristic
   SAT -S3 [DIMACS_INPUT_FILE] // will use MOMS as the branching heuristic while solving the CNF
 ```
 
-If a satisifiable solution for the provided CNF is found, the CLI will output a file in DIMACS format containing the assignments which satisfied the input CNF. This file will be output in the same directory as the original input file provided albeit with a `.ouput` extension. 
+If a satisifiable solution for the provided CNF is found, the CLI will output a file in DIMACS format containing the assignments which satisfied the input CNF. This file will be output in the same directory as the original input file provided albeit with a `.out` extension. 
 
-So, if your input file was `~/Desktop/9x9-sudoku-dimacs.txt`, the output file will be `~/Desktop/9x9-sudoku-dimacs.txt.output`.
+So, if your input file was `~/Desktop/9x9-sudoku-dimacs.txt`, the output file will be `~/Desktop/9x9-sudoku-dimacs.txt.out`.
 
 ## Contributors
 

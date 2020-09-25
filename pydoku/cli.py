@@ -98,7 +98,7 @@ def interpret():
     exit(0)
 
   filepath = args[ARG_KEY_FILEPATH]
-  output_filepath = f'{filepath}.output'
+  output_filepath = f'{filepath}.out'
   try:
     cnf = FileHandler.parse(filepath)
   except:
