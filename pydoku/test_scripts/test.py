@@ -64,12 +64,13 @@ def evaluate(cnf: list, assignments: dict) -> bool:
   return True
 
 if __name__ == '__main__':
-  heuristic_id = 3
+  heuristic_id = 1
+  size = 9
   heuristic = HeuristicType(heuristic_id)
 
-  sudoku_examples = 'pydoku/test_files/sudoku-examples.txt'
-  sudoku_rules = 'pydoku/test_files/sudoku-rules.txt'
-  sudoku_file = 'pydoku/test_files/sudoku-dimacs.txt'
+  sudoku_examples = f'pydoku/test_files/{size}x{size}/sudoku-examples.txt'
+  sudoku_rules = f'pydoku/test_files/{size}x{size}/sudoku-rules.txt'
+  sudoku_file = f'pydoku/test_files/{size}x{size}/sudoku-dimacs.txt'
 
   rules = FileHandler.parse(sudoku_rules)
   examples = open(sudoku_examples, 'r')
@@ -88,14 +89,15 @@ if __name__ == '__main__':
     start_time = time.time()
 
     solver = SATSolver()
-    satisfied, result_assignments = solver.solve(deepcopy(cnf), heuristic)
+    satisfied, result_assignments, backtracks, splits = solver.solve(deepcopy(cnf), heuristic)
 
     # check if the returned assignments are valid
     valid = evaluate(cnf, result_assignments)
 
     if valid:
-      print('DPLL Output: Satisfied')
+      print(f'DPLL Output: Satisfied. Backtracks: {backtracks}')
     else:
       print('DPLL Output: Unsatisfied')
 
     print('--- %s seconds ---' % (time.time() - start_time))
+    print('--- %s backtracks ---' % backtracks)

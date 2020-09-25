@@ -107,14 +107,16 @@ def interpret():
 
   try:
     solver = SATSolver()
-    satisfied, assignments = solver.solve(cnf, heuristic)
+    satisfied, assignments, backtracks = solver.solve(cnf, heuristic)
 
     if satisfied:
       FileHandler.output(output_filepath, assignments)
-      success('Satisfiable solution for the formula found!')
+      success('Satisfiable solution for the formula found.')
+      success(f'Number of backtracks: {backtracks}')
       success(f'Truth assignments satisfying the CNF can be found here: {output_filepath}')
     else:
       error('Formula provided is unsatisfiable.')
+      error(f'Number of backtracks: {backtracks}')
 
   except:
     error('Error: An error occurred while solving the provided CNF formula.')

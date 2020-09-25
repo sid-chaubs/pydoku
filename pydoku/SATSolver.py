@@ -13,7 +13,12 @@ from random import choice
 
 class SATSolver:
 
-  def solve(self, cnf: list, heuristic: HeuristicType) -> [bool, dict]:
+  def __init__(self):
+    self.backtracks = 0
+    self.splits = 0
+
+
+  def solve(self, cnf: list, heuristic: HeuristicType) -> [bool, dict, int, int]:
     """
     Solves a boolean satisfiability problem represented in conjunctive normal form (CNF)
 
@@ -26,17 +31,26 @@ class SATSolver:
 
     Returns
     -------
-    [bool, dict]
-        returns true if a satisfiable solution to the CNF was found along with a dictionary containing assignments
+    [bool, dict, int, int]
+        returns true if a satisfiable solution to the CNF was found along with a the valid assignments,
+        the number of backtracks, and number of splits.
 
     See Also
     --------
     dpll : function implementing the logic for Davis–Putnam–Logemann–Loveland (DPLL) algorithm
     """
+    self.backtracks = 0
+    self.splits = 0
+
     if heuristic not in HeuristicType:
       raise TypeError('Invalid heuristic provided as input.')
 
-    return self.dpll(cnf, dict(), heuristic)
+    satisfied, assignments = self.dpll(cnf, dict(), heuristic)
+
+    if not satisfied:
+      self.backtracks -= 1
+
+    return satisfied, assignments, self.backtracks, self.splits
 
   def dpll(self, cnf: list, assignments: dict, heuristic: HeuristicType) -> [bool, dict]:
     """
@@ -78,6 +92,7 @@ class SATSolver:
 
     # check for presence of empty clause
     if [] in cnf:
+      self.backtracks += 1
       return False, None
 
     # check if all clauses are satisfied
@@ -86,6 +101,7 @@ class SATSolver:
 
     # At this point, we have gone through the list of all available unit literals in the current version of the CNF
     # This means that we now need to pick the next literal from clauses with two or more unassigned literals
+    self.splits += 1
     literal = self.next_literal(deepcopy(cnf), heuristic)
     new_cnf, new_assignments = self.transform(literal, deepcopy(cnf), deepcopy(assignments))
     result_satisfiable, result_assignments = self.dpll(deepcopy(new_cnf), deepcopy(new_assignments), heuristic)
@@ -115,7 +131,7 @@ class SATSolver:
 
     See Also
     --------
-    unit_propagation : function implementing the logic for unit propagation
+    dpll : function implementing the logic for Davis–Putnam–Logemann–Loveland (DPLL) algorithm
     next_literal : function implementing the logic to find the next literal to branch on
     """
     pure_literals = self.get_pure_literals(cnf)
@@ -156,7 +172,7 @@ class SATSolver:
 
     See Also
     --------
-    unit_propagation : function implementing the logic for unit propagation
+    dpll : function implementing the logic for Davis–Putnam–Logemann–Loveland (DPLL) algorithm
     next_literal : function implementing the logic to find the next literal to branch on
     """
     assignments[literal] = True
@@ -221,7 +237,7 @@ class SATSolver:
     minimal_clause_size = None
     literals = list()
 
-    for clause in cnf:
+    for clause in copy(cnf):
       if minimal_clause_size is None:
         minimal_clause_size = len(clause)
 
