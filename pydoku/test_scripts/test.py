@@ -68,9 +68,9 @@ if __name__ == '__main__':
   size = 9
   heuristic = HeuristicType(heuristic_id)
 
-  sudoku_examples = f'pydoku/test_files/{size}x{size}/sudoku-examples.txt'
-  sudoku_rules = f'pydoku/test_files/{size}x{size}/sudoku-rules.txt'
-  sudoku_file = f'pydoku/test_files/{size}x{size}/sudoku-dimacs.txt'
+  sudoku_examples = f'pydoku/test_files/{size}x{size}/examples.txt'
+  sudoku_rules = f'pydoku/test_files/{size}x{size}/rules.txt'
+  sudoku_file = f'pydoku/test_files/{size}x{size}/dimacs.txt'
 
   rules = FileHandler.parse(sudoku_rules)
   examples = open(sudoku_examples, 'r')
