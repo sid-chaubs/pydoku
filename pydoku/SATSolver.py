@@ -131,7 +131,7 @@ class SATSolver:
 
     See Also
     --------
-    unit_propagation : function implementing the logic for unit propagation
+    dpll : function implementing the logic for Davis–Putnam–Logemann–Loveland (DPLL) algorithm
     next_literal : function implementing the logic to find the next literal to branch on
     """
     pure_literals = self.get_pure_literals(cnf)
@@ -172,7 +172,7 @@ class SATSolver:
 
     See Also
     --------
-    unit_propagation : function implementing the logic for unit propagation
+    dpll : function implementing the logic for Davis–Putnam–Logemann–Loveland (DPLL) algorithm
     next_literal : function implementing the logic to find the next literal to branch on
     """
     assignments[literal] = True
